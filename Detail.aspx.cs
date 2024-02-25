@@ -15,54 +15,105 @@ using System.EnterpriseServices.Internal;
 using System.Security.Claims;
 using System.Web.Services.Description;
 using Newtonsoft.Json;
+using System.IO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Aioi
-{
-
-
-
+{ 
     public partial class Detail : Page
     {
      
         public string dateVal;
         public string _id;
         protected void Page_Load(object sender, EventArgs e)
-        {
+        { 
             lbErr.Text = "";
             _id = HttpContext.Current.Request.QueryString["id"];
-           
+     
+
             if (!IsPostBack)
-            { 
-                setStateDropdown(); 
-
+            {        
+                setStateDropdown();
+                ddlState.SelectedIndexChanged += new EventHandler(onState_Change);
+                Page.ClientScript.RegisterForEventValidation(ddlState.UniqueID);
             }
-        }
-        protected override void OnPreRender(EventArgs e)
-        {
-            if (!Page.IsPostBack)
-            {
-                fillPage();
-            }
-
-            if (String.IsNullOrWhiteSpace(_id))
-            {
-                btnDelete.Visible = false;
-                divNewHeader.Visible = true;
-                img.Src = "./images/nophoto.jpg";
-            }
-            else
-            {
-                btnDelete.Visible = true;
-                divNewHeader.Visible = false;
-                img.Src = "./images/photo2.jpg";
-            }
-
         }
 
          
-        private void fillPage()
+        protected override void OnPreRender(EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            { 
+                fillPage();
+                if (String.IsNullOrWhiteSpace(_id))
+                {
+                    btnDelete.Visible = false;
+                    divNewHeader.Visible = true;
+                  
+                }
+                else
+                {
+                    btnDelete.Visible = true;
+                    divNewHeader.Visible = false; 
+                }
+            }
+
+            fillCustomerImage();
+
+
+
+        }
+
+
+
+        protected override void OnSaveStateComplete(EventArgs e)
+        { 
+        }
+
+
+        private void fillCustomerImage()
         {
 
+
+
+            if (String.IsNullOrWhiteSpace(_id))
+            {
+
+                if (hImageFile.Value.Length > 0)
+                {
+                    img.Src = hImageFile.Value;
+                }
+                else
+                {
+                    img.Src = "./images/nophoto.jpg" + "?v=" + inFunction.getUnixDateTime();
+                }
+
+            }
+            else
+            {
+                string uploadDirectory = Server.MapPath("~/uploads/");
+                string fileName = _id + ".jpg";
+                string filePath = Path.Combine(uploadDirectory, fileName);
+                if (File.Exists(filePath))
+                {
+                    img.Src = "~/uploads/" + fileName + "?v=" + inFunction.getUnixDateTime();
+                }
+                else
+                {
+                    img.Src = "~/images/nophoto.jpg" + "?v=" + inFunction.getUnixDateTime();
+                }
+            }
+
+
+
+
+
+            
+            updatePanel.Update();
+        }
+
+        private void fillPage()
+        { 
             using (SqlConnection conn = new SqlConnection(inFunction.getConnectionStr()))
             {
                 conn.Open();
@@ -89,6 +140,8 @@ namespace Aioi
                         inFunction.SetValueToDropDown(ddlGender, inFunction.CString(reader["gender"]));
                         inFunction.SetValueToDropDown(ddlCity, inFunction.CString(reader["city"]));
                         inFunction.SetValueToDropDown(ddlState, inFunction.CString(reader["state"]));
+                         
+
                     }
                     reader.Close();
                 }
@@ -96,11 +149,50 @@ namespace Aioi
 
             }
         }
+        protected void btnInputFile_Click(object sender, EventArgs e)
+        {
+            if (!String.IsNullOrWhiteSpace(_id))
+            {
+                saveFile();
+            }
+         
+        }
+         
+        protected void saveFile()
+        { 
 
+            HttpFileCollection files = Request.Files;
+   
+            if (files.Count > 0)
+            {
+                HttpPostedFile postedFile = files[0]; 
+
+                if (postedFile != null && postedFile.ContentLength > 0)
+                { 
+                  
+                    
+                        string uploadDirectory = Server.MapPath("~/uploads/");
+                        string fileName = _id + ".jpg";
+                        string filePath = Path.Combine(uploadDirectory, fileName);
+
+                        if (File.Exists(filePath))
+                        {
+
+                            File.Delete(filePath);
+                        } 
+
+                        postedFile.SaveAs(filePath); 
+
+                        img.Src = "~/uploads/" + fileName + "?v=" + inFunction.getUnixDateTime(); 
+                     
+                }
+            }
+        }
+         
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-
+            string newId = "";
 
             using (SqlConnection conn = new SqlConnection(inFunction.getConnectionStr()))
             {
@@ -109,9 +201,7 @@ namespace Aioi
 
                 using (SqlCommand cmd = new SqlCommand(null, conn))
                 {
-                    cmd.CommandTimeout = 300;
-
-
+                    cmd.CommandTimeout = 300;  
                     string ssid = txtSSID.Text.Replace("-", "");
                   
                      
@@ -127,8 +217,10 @@ namespace Aioi
                         }
                         else
                         {
+                            newId = System.Guid.NewGuid().ToString().ToUpper();
+
                             sql.AppendLine(" insert into customer (id, ssid, firstname, lastname, gender, birthdate, address_line1, address_line2, city , state , zip, phone, email) ");
-                            sql.AppendLine(" values(  NEWID() ");
+                            sql.AppendLine(" values( " + inFunction.getSqlTxt(newId));
                             sql.AppendLine(" , " + inFunction.getSqlTxt(ssid));
                             sql.AppendLine(" , " + inFunction.getSqlTxt(txtFirstname.Text));
                             sql.AppendLine(" , " + inFunction.getSqlTxt(txtLastname.Text));
@@ -172,11 +264,37 @@ namespace Aioi
                       
                     }
 
+                     
+                    upErr.Update();
                     string sqlStr = sql.ToString();
                     if (sqlStr != "")
-                    {
+                    { 
                         cmd.CommandText = sql.ToString();
                         cmd.ExecuteNonQuery();
+
+
+                        if (!String.IsNullOrWhiteSpace(newId) && hImageFile.Value.Length > 0)
+                        {
+
+                            string[] imgString = hImageFile.Value.Split(new string[] { "base64," }, StringSplitOptions.None);
+
+                            if (imgString.Length == 2)
+                            {
+                                string base64Image = imgString[1];
+
+                                byte[] imageBytes = Convert.FromBase64String(base64Image);
+                                string uploadDirectory = Server.MapPath("~/uploads/");
+                                string fileName = newId + ".jpg";
+                                string filePath = Path.Combine(uploadDirectory, fileName);
+                                if (File.Exists(filePath))
+                                {
+                                    File.Delete(filePath);
+                                }
+                                File.WriteAllBytes(filePath, imageBytes);
+
+                            } 
+                        } 
+
                         HttpContext.Current.Response.Redirect("/customer.aspx");
                     }
                    
@@ -226,8 +344,9 @@ namespace Aioi
 
             ddlCity.DataSource = cityList;
             ddlCity.DataBind();
+            ddlCity.Items[0].Value = "";
             ddlCity.SelectedIndex = 0;
-
+            upState.Update();
         }
 
 
@@ -263,17 +382,9 @@ namespace Aioi
             var stateList = new ListItem[] { new ListItem("-โปรดระบุจังหวัด-", "") }
                 .Concat(states.Select(state => new ListItem(state, state)))
                 .ToArray();
-            ddlState.DataSource = stateList;
-
-
-          
-
+            ddlState.DataSource = stateList; 
             ddlState.DataBind();
-  ddlState.Items[0].Value = "";
-       
-            lbErr.Visible = true;
-
-
+            ddlState.Items[0].Value = "";  
             ddlState.SelectedIndex = 0;
 
         }

@@ -15,6 +15,15 @@ namespace Aioi
     {
 
         /// <summary>
+        /// updatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updatePanel;
+
+        /// <summary>
         /// img control.
         /// </summary>
         /// <remarks>
@@ -22,6 +31,24 @@ namespace Aioi
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlImage img;
+
+        /// <summary>
+        /// myFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputFile myFile;
+
+        /// <summary>
+        /// btnInputFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnInputFile;
 
         /// <summary>
         /// divNewHeader control.
@@ -123,6 +150,15 @@ namespace Aioi
         protected global::System.Web.UI.WebControls.TextBox txtAdd1;
 
         /// <summary>
+        /// upState control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upState;
+
+        /// <summary>
         /// ddlState control.
         /// </summary>
         /// <remarks>
@@ -159,6 +195,15 @@ namespace Aioi
         protected global::System.Web.UI.WebControls.TextBox txtZip;
 
         /// <summary>
+        /// upErr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upErr;
+
+        /// <summary>
         /// lbErr control.
         /// </summary>
         /// <remarks>
@@ -166,6 +211,15 @@ namespace Aioi
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbErr;
+
+        /// <summary>
+        /// UpdatePanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
 
         /// <summary>
         /// btnSave control.
@@ -193,5 +247,23 @@ namespace Aioi
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button bacBack;
+
+        /// <summary>
+        /// upHiddenFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upHiddenFile;
+
+        /// <summary>
+        /// hImageFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hImageFile;
     }
 }

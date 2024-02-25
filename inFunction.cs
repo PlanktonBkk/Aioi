@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Linq;
 using System.Web.UI.WebControls;
 using System.Globalization;
+using System.IO;
 
 namespace Aioi
 {
@@ -79,6 +80,13 @@ namespace Aioi
                 return Convert.ToString(obj);
             }
         }
+        public static string getUnixDateTime()
+        {
+
+            Int32 unixTimestamp = (int)DateTimeOffset.Now.ToUnixTimeSeconds();
+            return inFunction.CString(unixTimestamp);
+
+        }
 
         public static string getSqlTxt(string txt )
         {
@@ -114,6 +122,12 @@ namespace Aioi
 
 
         }
+
+
+
+  
+
+
 
         public static string getConfigVal(string key)
         {

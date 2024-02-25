@@ -255,6 +255,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="images\" />
+    <Folder Include="temp\" />
+    <Folder Include="uploads\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
