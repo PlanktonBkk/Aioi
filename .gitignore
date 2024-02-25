@@ -245,43 +245,6 @@ ModelManifest.xml
 .fake/
 
 .vscode/
+ 
 
-# Web.config
-# Web.config
-/AFSGlobal/Web.Debug.config
-
-AFSGlobal/Web.config
-AFSGlobal/AFSWorldCafe/wcLoginLog.txt
-AFSGlobal/AFSWorldCafe/wcRoleUpdateLog.txt
-AFSGlobal/AFSWorldCafe/wcSynAffiliationMemberLog.txt
-AFSGlobal/AFSWorldCafe/wcSyncMemberLog - Copy.txt
-AFSGlobal/AFSWorldCafe/wcSyncMemberLog.txt
-AFSGlobal/AFSWorldCafe/wcSyncUserLog - Copy.txt
-AFSGlobal/AFSWorldCafe/wcSyncUserLog.txt
-AFSGlobal/AFSWorldCafe/wcSynDeleteAccountLog.txt
-AFSGlobal/World Cafe Sync/wc_log.txt
-AFSGlobal/package-lock.json
-
-AFSGlobal.sln
-/AFSGlobal/MRS-SSO/
-/AFSGlobal/_gitignore
-/AFSGlobal/TestNithiwat
-/AFSGlobal/TestNithiwat
-/AFSGlobal/test/RequestSFapi.html
-/AFSGlobal/vwd.webinfo
-/AFSGlobal/Angular/app/**/*.js
-/AFSGlobal/Angular/home/**/*.js
-/AFSGlobal/Angular/app/**/*.map
-/AFSGlobal/Angular/home/**/*.map
-/AFSGlobal/lokalise.ashx
-/AFSGlobal/PartnerExtension/AFS-USA/EmailCleanup/AddContactLog/Upload/*
-/AFSGlobal/PartnerExtension/AFS-USA/SEVIS/ExportPaxData/Upload/*
-/AFSGlobal/PartnerExtension/AFS-USA/YearlyProcesses/SetSMSOptOut/Upload/*
-
-/core-service/core-service/bin/
-/core-service/core-service/App_Data/config.json
-/core-service/core-service/_publish/**/App_Data/config.json
-/JPN-ext/.angular/cache/15.2.4/babel-webpack
-/JPN-ext/.angular/cache/15.2.4/angular-webpack/40a8700131ee03096117994bf875de8a39da70d0
-/JPN-ext/.angular/cache/15.2.4/angular-webpack/f09643c1f7b222ded64dce0604401ee013cac86d
-/JPN-ext/.angular/cache/15.2.4/angular-webpack/26e1f91ecfc5e4357afd99037e8db3fd4d669aef
+ 
