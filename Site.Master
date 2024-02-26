@@ -21,11 +21,9 @@
 
      
     <style type="text/css">
-        .container {
-            padding-left: 0px;
-        }
+     
 
-        .nav-item.right {
+        .nav-item.nav-right {
             margin-left: auto;
         }
 
@@ -119,7 +117,7 @@
                         <li id="liCustomer" runat="server" class="nav-item"><a class="nav-link" runat="server" href="~/Customer">ข้อมูลลูกค้า</a></li>
                         <li id="liAbout" runat="server" class="nav-item"><a class="nav-link" runat="server" href="~/About">เกี่ยวกับโปรเจ็ค</a></li>
                         <li id="liContact" runat="server" class="nav-item"><a class="nav-link" runat="server" href="~/Contact">ติดต่อเรา</a></li> 
-                        <li id="liAuthenticated" runat="server" class="nav-item right">
+                        <li id="liAuthenticated" runat="server" class="nav-item nav-right">
                             <div
                                 style="display: flex; flex-direction: row; align-items: center; cursor: pointer;">
                                 <img src="./images/user.jpg" class="avatar-50">

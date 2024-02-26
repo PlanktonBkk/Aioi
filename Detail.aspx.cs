@@ -54,7 +54,7 @@ namespace Aioi
                 else
                 {
                     btnDelete.Visible = true;
-                    divNewHeader.Visible = false; 
+                   divNewHeader.Visible = false; 
                 }
             }
 

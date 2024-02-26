@@ -10,8 +10,7 @@
         <ul>
             <li>Authentication</li>
             <li>Authoraization</li>
-            <li>Photo Upload</li>
-            <li>Mandatory fields checking</li>
+       
         </ul> 
-    </main>
+    </main> 
 </asp:Content>

@@ -63,6 +63,16 @@
                 }
 
         }
+
+        .search-result-outer{
+            width:100%;
+            overflow-x:scroll;
+            height:fit-content;
+        }
+        .search-result-inner{
+            width:fit-content;
+            min-width:1300px;
+        }
    
     </style>
     <main aria-labelledby="title">
@@ -83,8 +93,8 @@
                 ** ระบุบางส่วนของคำที่จะค้นหาใน บ้ตรประชาชน, ชื่อ, สกุล, อีเมล, เบอร์โทรศัพท์
             </div>
         </div>
-
-        <div class="flex-col">
+        <div class="search-result-outer">
+                    <div class="flex-col search-result-inner">
             <div class="flex-row">
                 <labe id="Labe1" runat="server">ผลการค้นหา:</labe>
                 <labe id="lbCount" runat="server" class="text-red">0</labe>
@@ -141,6 +151,9 @@
             </asp:GridView>
         </div>
 
+        </div>
+
+      
 
     </main>
 </asp:Content>

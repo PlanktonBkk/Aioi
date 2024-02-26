@@ -3,138 +3,157 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <main aria-labelledby="title">
-        <div class="box">
-            <div class="d-flex flex-column flex-md-row flex-lg-row" style="gap: 32px;">
-                <div class="photo-box" style="position:relative">
-                    <h3>ข้อมูลส่วนบุคคล</h3>
+
+        <div class="d-flex flex-column flex-md-row flex-lg-row" style="gap: 32px; flex-wrap: wrap">
+
+            <div class="d-flex flex-column left ">
+                <h3 class="header">ข้อมูลส่วนบุคคล</h3>
+
+                <div class="photo-containner">
                     <asp:UpdatePanel ID="updatePanel" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <div class="photo-outer">
                                 <img id="img" runat="server" onclick="browseFile()" src="./images/nophoto.jpg" style="width: 200px; height: 200px; border-radius: 50%; cursor: pointer" class="photo" />
                                 <input id="myFile" runat="server" type="file" accept="image/*" hidden onchange="updateImageAndPostBack(this)" />
                                 <asp:Button ID="btnInputFile" runat="server" Style="display: none;" OnClick="btnInputFile_Click" />
-                         
+
                             </div>
                         </ContentTemplate>
                         <Triggers>
                             <asp:PostBackTrigger ControlID="btnInputFile" />
                         </Triggers>
-                    </asp:UpdatePanel>       
+                    </asp:UpdatePanel>
                 </div>
-                <div>
-                      
-                    <div id="divNewHeader" runat="server" class="flex-col " style="margin-top: 0px">
-                        <h3>เพิ่มข้อมูลใหม่</h3>
-                    </div>
-                    <div class="flex-col ">
+
+            </div>
+            <div class="d-flex flex-column right">
+
+                <div class=" d-flex flex-column flex-md-row flex-lg-row  flex-item-group">
+                    <h3 id="divNewHeader" runat="server" class="header">เพิ่มข้อมูลใหม่</h3>
+
+
+                </div>
+                <div class=" d-flex flex-column flex-md-row flex-lg-row  flex-item-group">
+                    <div class=" flex-column flex-item">
                         <label class="required">บัตรประชาชน:</label>
-                        <asp:TextBox ID="txtSSID" runat="server" attern="\d{1}\-\d{4}\-\d{5}\-\d{2}\-\d{1}\" class="form-control id-card required" Width="50%"></asp:TextBox>
-                    </div>
-                    <div class="flex-row">
-                        <div class="flex-col">
-                            <label class="required">ชื่อ:</label>
-                            <asp:TextBox ID="txtFirstname" runat="server" Width="355" MaxLength="75" CssClass="form-control required"></asp:TextBox>
-                        </div>
-                        <div class="flex-col">
-                            <label class="required">สกุล:</label>
-                            <asp:TextBox ID="txtLastname" runat="server" Width="355" MaxLength="75" CssClass="form-control required"></asp:TextBox>
-                        </div>
-                    </div>
-                    <div class="flex-row">
-                        <div class="flex-col" style="width: 50%">
-                            <label class="required">เพศ:</label>
-                            <asp:DropDownList ID="ddlGender" CssClass="form-control required"
-                                runat="server">
-                                <asp:ListItem Value=""> -โปรดระบุเพศ- </asp:ListItem>
-                                <asp:ListItem Value="F"> หญิง </asp:ListItem>
-                                <asp:ListItem Value="M"> ชาย </asp:ListItem>
+                        <asp:TextBox ID="txtSSID" runat="server" attern="\d{1}\-\d{4}\-\d{5}\-\d{2}\-\d{1}\" class="form-control id-card required"></asp:TextBox>
 
-                            </asp:DropDownList>
+                    </div>
+                    <div class=" flex-column flex-item item-dummy">
+                        &nbsp;
+                    </div>
+
+                </div>
+
+
+                <div class="d-flex flex-column flex-md-row flex-lg-row  flex-item-group">
+
+                    <div class=" flex-column flex-item">
+                        <label class="required">ชื่อ:</label>
+                        <asp:TextBox ID="txtFirstname" runat="server" Width="100%" MaxLength="75" CssClass="form-control required"></asp:TextBox>
+                    </div>
+                    <div class=" flex-column flex-item">
+                        <label class="required">สกุล:</label>
+                        <asp:TextBox ID="txtLastname" runat="server" Width="100%" MaxLength="75" CssClass="form-control required"></asp:TextBox>
+                    </div>
+
+                </div>
+                <div class="d-flex flex-column flex-md-row flex-lg-row  flex-item-group">
+                    <div class=" flex-column  flex-item">
+                        <label class="required">เพศ:</label>
+                        <asp:DropDownList ID="ddlGender" CssClass="form-control required" Width="100%"
+                            runat="server">
+                            <asp:ListItem Value=""> -โปรดระบุเพศ- </asp:ListItem>
+                            <asp:ListItem Value="F"> หญิง </asp:ListItem>
+                            <asp:ListItem Value="M"> ชาย </asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                    <div class=" flex-column  flex-item">
+                        <label class="required">วันเดือนปี เกิด:</label>
+                        <div class="input-group">
+                            <asp:TextBox ID="txtDate" runat="server" CssClass="form-control required" Width="100%"
+                                ReadOnly="true"
+                                Style="cursor: pointer; width: 100%; max-width: 100%!important; border: 1px solid;"></asp:TextBox>
+                            <span class="input-group-addon" style="cursor: pointer; position: absolute; transform: translateY(-50%); right: 5px; top: 50%;">
+                                <i id="iCal" runat="server" class="far fa-calendar"></i>
+                            </span>
+                            <asp:HiddenField ID="hDate" runat="server" />
                         </div>
-                        <div class="flex-col" style="width: 50%">
-                            <label class="required">วันเดือนปี เกิด:</label>
-                            <div class="input-group">
-                                <asp:TextBox ID="txtDate" runat="server" CssClass="form-control required"
-                                    ReadOnly="true"
-                                    Style="cursor: pointer; width: 100%; max-width: 100%!important; border: 1px solid;"></asp:TextBox>
-                                <span class="input-group-addon" style="cursor: pointer; position: absolute; transform: translateY(-50%); right: 5px; top: 50%;">
-                                    <i id="iCal" runat="server" class="far fa-calendar"></i>
-                                </span>
-                                <asp:HiddenField ID="hDate" runat="server" />
+
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column flex-md-row flex-lg-row flex-item-group">
+                    <div class=" flex-column  flex-item">
+                        <label>อีเมล:</label>
+                        <asp:TextBox ID="txtEmail" runat="server" Width="100%" MaxLength="100" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <div class=" flex-column  flex-item">
+                        <label class="required">เบอร์โทร:</label>
+                        <asp:TextBox ID="txtPhone" runat="server" Width="100%" MaxLength="100" CssClass="form-control required"></asp:TextBox>
+                    </div>
+                </div>
+
+
+                <div class="d-flex flex-column flex-md-row flex-lg-row  flex-item-group">
+                    <div class=" flex-column  flex-item">
+                        <label class="required">ที่ตั้ง:</label>
+                        <asp:TextBox ID="txtAdd1" runat="server" CssClass="form-control" Width="100%" MaxLength="255"></asp:TextBox>
+                    </div>
+
+                </div>
+
+
+                <asp:UpdatePanel ID="upState" runat="server" UpdateMode="Conditional">
+                    <ContentTemplate>
+                        <div class="d-flex flex-column flex-md-row flex-lg-row  flex-item-group">
+                            <div class=" flex-column  flex-item">
+                                <label class="required">จังหวัด:</label>
+                                <asp:DropDownList ID="ddlState" CssClass="select form-control required" Width="100%"
+                                    AutoPostBack="True"
+                                    OnSelectedIndexChanged="onState_Change"
+                                    runat="server">
+                                </asp:DropDownList>
                             </div>
-
-                        </div>
-                    </div>
-                    <div class="flex-row">
-                        <div class="flex-col">
-                            <label>อีเมล:</label>
-                            <asp:TextBox ID="txtEmail" runat="server" Width="355" MaxLength="100" CssClass="form-control"></asp:TextBox>
-                        </div>
-                        <div class="flex-col">
-                            <label class="required">เบอร์โทร:</label>
-                            <asp:TextBox ID="txtPhone" runat="server" Width="355" MaxLength="100" CssClass="form-control required"></asp:TextBox>
-                        </div>
-                    </div>
-                  
-                    <fieldset>
-
-                        <legend style="height: 14px;">&nbsp;</legend>
- 
-                        <div class="flex-row">
-                            <div class="flex-col" style="width: 100%">
-                                <label class="required">ที่ตั้ง:</label>
-                                <asp:TextBox ID="txtAdd1" runat="server" CssClass="full-width form-control" Style="max-width: 100%!important" Width="100%" MaxLength="255"></asp:TextBox>
-                            </div>
-
-                        </div>
-                        <asp:UpdatePanel ID="upState" runat="server" UpdateMode="Conditional">
-                            <ContentTemplate>
-                                <div class="flex-row">
-                                    <div class="flex-col" style="width: 50%">
-                                        <label class="required">จังหวัด:</label>
-                                        <asp:DropDownList ID="ddlState" CssClass="select form-control required"
-                                            AutoPostBack="True"
-                                            OnSelectedIndexChanged="onState_Change"
-                                            runat="server">
-                                        </asp:DropDownList>
-                                    </div>
-                                    <div class="flex-col" style="width: 50%">
-                                        <label class="required">อำเภอ/เขต:</label>
-                                        <asp:DropDownList ID="ddlCity" CssClass="select form-control required" runat="server">
-                                            <asp:ListItem Value=""> -โปรดระบุเขต/อำเภอ- </asp:ListItem>
-                                        </asp:DropDownList>
-                                    </div>
-
-                                </div>
-                            </ContentTemplate>
-                            <Triggers>
-                                <asp:AsyncPostBackTrigger ControlID="ddlState" EventName="SelectedIndexChanged" />
-
-                            </Triggers>
-                        </asp:UpdatePanel>
-                        <div class="flex-row">
-                            <div class="flex-col">
-                                <label>ตำบล/แขวง:</label>
-                                <asp:TextBox ID="txtAdd2" runat="server" Width="355" MaxLength="255" CssClass="form-control"></asp:TextBox>
-                            </div>
-
-                            <div class="flex-col">
-                                <label class="required">รหัสไปรษณีย์:</label>
-                                <asp:TextBox ID="txtZip" runat="server" Width="355" MaxLength="5" CssClass="form-control required"></asp:TextBox>
+                            <div class=" flex-column  flex-item">
+                                <label class="required">อำเภอ/เขต:</label>
+                                <asp:DropDownList ID="ddlCity" CssClass="select form-control required" Width="100%" runat="server">
+                                    <asp:ListItem Value=""> -โปรดระบุเขต/อำเภอ- </asp:ListItem>
+                                </asp:DropDownList>
                             </div>
                         </div>
-                            
-                    </fieldset>
+
+                    </ContentTemplate>
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="ddlState" EventName="SelectedIndexChanged" />
+
+                    </Triggers>
+                </asp:UpdatePanel>
+
+                <div class="d-flex flex-column flex-md-row flex-lg-row  flex-item-group">
+                    <div class=" flex-column  flex-item">
+                        <label>ตำบล/แขวง:</label>
+                        <asp:TextBox ID="txtAdd2" runat="server" Width="100%" MaxLength="255" CssClass="form-control"></asp:TextBox>
+                    </div>
+
+                    <div class=" flex-column  flex-item">
+                        <label class="required">รหัสไปรษณีย์:</label>
+                        <asp:TextBox ID="txtZip" runat="server" Width="100%" MaxLength="5" CssClass="form-control required"></asp:TextBox>
+                    </div>
+                </div>
+                <div class="d-flex flex-column flex-md-row flex-lg-row  flex-item-group"  style="align-items: center; justify-content: center;">
+
                     <asp:UpdatePanel ID="upErr" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <div class="flex-row" style="justify-content: center; margin-top: 20px;">
-                                <asp:Label ID="lbErr" runat="server" ForeColor="Red"></asp:Label> 
+                            <div class="flex-row" style="justify-content: center; margin-top: 20px">
+                                <asp:Label ID="lbErr" runat="server" Width="100%" ForeColor="Red"></asp:Label>
                             </div>
-                        </ContentTemplate> 
-                    </asp:UpdatePanel> 
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
 
-
-                    <div class="flex-row" style="justify-content: center; margin-top: 20px;">
+                </div>
+                <div class="d-flex flex-column flex-md-row flex-lg-row  flex-item-group  " style="align-items: center; justify-content: center;">
+                    <div class="flex-row" style="justify-content: center;  ">
                         <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
                             <ContentTemplate>
                                 <asp:Button ID="btnSave" runat="server" Text="บันทึก" BackColor="#015bb5" OnClientClick="return checkMandatoryFields()" BorderColor="transparent" ForeColor="White" Width="70px"
@@ -147,22 +166,94 @@
                             OnClientClick="javascript: return confirm('ต้องการลบข้อมูล?');" />
                         <asp:Button ID="bacBack" runat="server" Text="ยกเลิก" BorderColor="transparent" Width="70px"
                             OnClick="btnBack_Click" />
-                    </div> 
+                    </div>
                 </div>
+
+
             </div>
-
-
-            <asp:UpdatePanel ID="upHiddenFile" runat="server" UpdateMode="Conditional">
-                <ContentTemplate>
-                    <asp:HiddenField ID="hImageFile" runat="server" />
-                </ContentTemplate> 
-            </asp:UpdatePanel>
-
 
         </div>
 
+        <asp:UpdatePanel ID="upHiddenFile" runat="server" UpdateMode="Conditional">
+            <ContentTemplate>
+                <asp:HiddenField ID="hImageFile" runat="server" />
+            </ContentTemplate>
+        </asp:UpdatePanel>
+
     </main>
     <style>
+        @media only screen and (max-width: 600px) {
+            .photo-outer {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .photo-containner {
+                align-self: center;
+            }
+
+            .right {
+                flex-grow: 1;
+                margin-top: 0px;
+            }
+
+            .item-dummy {
+                display: none;
+            }
+
+            .left {
+                flex-grow: 1;
+                width: 100% !important;
+                justify-content: center;
+                width: 100% !important;
+                max-width: 100% !important;
+                align-items: flex-start !important;
+            }
+
+            .right {
+                width: 100%;
+            }
+
+            .flex-item-group {
+                width: 100%;
+                gap: 16px;
+                max-width: 100% !important;
+            }
+        }
+
+        .header {
+            margin-bottom: 20px;
+            white-space: nowrap;
+        }
+
+        .left {
+            width: 240px;
+            align-items: center;
+        }
+
+        .right {
+            flex-grow: 1;
+        }
+
+
+
+        .flex-item {
+            width: 100%;
+        }
+
+
+        .flex-item-group {
+            width: 100%;
+            gap: 16px;
+            max-width: 650px !important;
+            margin-bottom: 12px;
+        }
+
+        .flex-item-full-width {
+            width: 100%;
+        }
+
         label.required::after {
             content: " *";
             color: red;
@@ -219,15 +310,14 @@
             text-align: center !important;
         }
 
+
         .link-style {
             text-align: center;
-            a
-
-        {
-            text-decoration: none;
         }
 
-
+            .link-style a {
+                text-decoration: none;
+            }
 
         legend {
             font-size: 1.25em;
@@ -290,6 +380,11 @@
 
             $('#<%= txtSSID.ClientID %>').mask('0-0000-00000-00-0', { autoclear: false });
 
+            $('#<%= txtZip.ClientID %>').mask('00000', { autoclear: false });
+
+
+
+
 
             if ($('#<%= hDate.ClientID %>').val() != "") {
 
@@ -303,7 +398,7 @@
             $('#<%= myFile.ClientID %>').click();
         }
 
-     
+
 
         function updateImageAndPostBack(input) {
             var imgElement = document.getElementById('<%= img.ClientID %>');
@@ -322,11 +417,11 @@
                     var reader = new FileReader();
 
                     reader.onload = function (e) {
-                        $('#<%= hImageFile.ClientID %>').val(e.target.result); 
+                        $('#<%= hImageFile.ClientID %>').val(e.target.result);
                         imgElement.src = $('#<%= hImageFile.ClientID %>').val();
-                     
+
                         // Trigger postback using __doPostBack
-                      __doPostBack('<%= btnInputFile.UniqueID %>', '');
+                        __doPostBack('<%= btnInputFile.UniqueID %>', '');
                     };
 
                     reader.readAsDataURL(input.files[0]);
