@@ -362,7 +362,7 @@
         }
 
         .select {
-            height: 30px !important;
+            height: 38px !important;
         }
 
         .photo-outer {
